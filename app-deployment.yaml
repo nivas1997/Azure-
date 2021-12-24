@@ -1,0 +1,22 @@
+apiVersion : apps/v1
+kind : Deployment
+metadata :
+  name : docker-spring-boot-deploy
+  labels :
+    app : docker-spring-boot
+spec :
+  replicas : 2
+  selector :
+    matchLabels :
+      app: docker-spring-boot
+  template :
+    metadata:
+      labels:
+        app: docker-spring-boot
+    spec:
+      containers:
+        - name: docker-spring-boot-container
+          image: freetraincr.azurecr.io/docker-spring-boot:v1
+          imagePullPolicy : IfNotPresent
+          ports:
+            - containerPort: 8085
